@@ -56,4 +56,15 @@ public class TimelineResource {
         em.getTransaction().commit();
         return "{\"msg\":\"setup all good\"}";
     }
+
+    @POST
+    @Produces({MediaType.APPLICATION_JSON})
+    @Path("/create")
+    public String createTimeline(String timeline){
+        TimelineDTO timelineDTO = GSON.fromJson(timeline, TimelineDTO.class);
+        TimelineDTO createdTimeline = FACADE.createTimeline(timelineDTO);
+        return GSON.toJson(createdTimeline);
+
+    }
+
 }

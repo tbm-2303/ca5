@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
+import javax.ws.rs.NotFoundException;
 
 //import errorhandling.RenameMeNotFoundException;
 import entities.Timeline;
@@ -43,29 +44,28 @@ public class TimelineFacade {
     }
 
 
-
-
-
-
-
-
-
+    public TimelineDTO createTimeline(TimelineDTO timelineDTO){
+        EntityManager em = emf.createEntityManager();
+        try {
+        User user = em.find(User.class, timelineDTO.getUsername());
+            if (user == null) {
+                throw new NotFoundException("No user with this name exists");
+            }
+        Timeline timeline = new Timeline(timelineDTO.getDescription(),user);
+        em.getTransaction().begin();
+        em.persist(timeline);
+        em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        return timelineDTO;
+    }
 
 
 
 
 }
        /*
-       public TimelineDTO create(TimelineDTO timelineDTO) {    }
-       EntityManager em = emf.createEntityManager();
-
-        Timeline timeline = new Timeline(timelineDTO);
-        User user = timeline.getUser();
-
-        UserFacade userFacade = UserFacade.getUserFacade(emf);
-
-
-
 
         CityInfo cityInfo = new CityInfo(personDTO.getAddressDTO().getCityInfoDTO());
         Address address = new Address(personDTO.getAddressDTO());
