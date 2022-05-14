@@ -1,5 +1,7 @@
 package entities;
 
+import dtos.TimelineDTO;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -17,7 +19,6 @@ public class Timeline implements Serializable {
     @Column(name = "id")
     private Long id;
 
-
     @Basic(optional = false)
     @NotNull
     @Column(name = "description")
@@ -27,7 +28,6 @@ public class Timeline implements Serializable {
     @JoinColumn(name = "username")
     private User user;
 
-
     public Timeline() {}
 
     public Timeline(String description, User user){
@@ -35,4 +35,17 @@ public class Timeline implements Serializable {
         this.user = user;
     }
 
+    public Timeline(TimelineDTO dto){
+        if (dto.getId() != null) {
+            this.id = dto.getId();
+        }
+        this.description = dto.getDescription();
+    }
+
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
+    public User getUser() { return user; }
+    public void setUser(User user) { this.user = user; }
 }
