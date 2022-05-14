@@ -16,11 +16,10 @@ import java.util.Scanner;
 import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.TypedQuery;
+import javax.ws.rs.*;
 import javax.ws.rs.core.*;
-import javax.ws.rs.Produces;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
 
 import facades.UserFacade;
 import utils.EMF_Creator;
@@ -72,12 +71,9 @@ public class DemoResource {
 
         EntityManager em = EMF.createEntityManager();
 
-
-
         User user = new User("timmy", "timmy123");
         User admin = new User("james", "james123");
         User both = new User("kent", "kent123");
-
 
         em.getTransaction().begin();
         Role userRole = new Role("user");
@@ -94,6 +90,36 @@ public class DemoResource {
         em.getTransaction().commit();
         return "{\"msg\":\"setup all good\"}";
     }
+
+
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    @Path("/all")
+    public Response getAllUsers() throws EntityNotFoundException {
+        List<User> users = FACADE.getAllUsers();
+        return Response
+                .ok()
+                .entity(GSON.toJson(users))
+                .build();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -5,8 +5,13 @@ import entities.Role;
 import entities.User;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.TypedQuery;
+
 import security.errorhandling.AuthenticationException;
 import utils.Utility;
+
+import java.util.List;
 
 /**
  * @author lam@cphbusiness.dk
@@ -73,4 +78,17 @@ public class UserFacade {
         }
         return user;
     }
+
+
+    public List<User> getAllUsers() throws EntityNotFoundException {
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<User> typedQueryUser
+                = em.createQuery("SELECT u FROM User u", User.class);
+        List<User> userList = typedQueryUser.getResultList();
+        return userList;
+    }
+
+
+
+
 }
