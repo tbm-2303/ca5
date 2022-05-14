@@ -1,6 +1,7 @@
 package facades;
 
 import com.google.gson.JsonObject;
+import dtos.UserDTO;
 import entities.Role;
 import entities.User;
 import javax.persistence.EntityManager;
@@ -11,6 +12,7 @@ import javax.persistence.TypedQuery;
 import security.errorhandling.AuthenticationException;
 import utils.Utility;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -80,12 +82,17 @@ public class UserFacade {
     }
 
 
-    public List<User> getAllUsers() throws EntityNotFoundException {
+    public List<UserDTO> getAllUsers() throws EntityNotFoundException {
         EntityManager em = emf.createEntityManager();
         TypedQuery<User> typedQueryUser
                 = em.createQuery("SELECT u FROM User u", User.class);
         List<User> userList = typedQueryUser.getResultList();
-        return userList;
+
+        List<UserDTO> userDTOS = new ArrayList<>();
+        for (User u : userList) {
+            userDTOS.add(new UserDTO(u));
+        }
+        return userDTOS;
     }
 
 

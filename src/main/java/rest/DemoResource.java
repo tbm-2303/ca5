@@ -3,6 +3,7 @@ package rest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import dtos.UserDTO;
 import entities.Role;
 import entities.User;
 
@@ -94,12 +95,12 @@ public class DemoResource {
 
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    @Path("/allusers")
+    @Path("/all")
     public Response getAllUsers() throws EntityNotFoundException {
-        List<User> users = FACADE.getAllUsers();
+        List<UserDTO> userDTOS = FACADE.getAllUsers();
         return Response
                 .ok()
-                .entity(GSON.toJson(users))
+                .entity(GSON.toJson(userDTOS))
                 .build();
     }
 
