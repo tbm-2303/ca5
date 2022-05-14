@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 
+import dtos.UserDTO;
 import org.mindrot.jbcrypt.BCrypt;
 
 @Entity
@@ -27,6 +28,12 @@ public class User implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "user_pass")
     private String userPass;
+
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "test")
+    private String test;
 
     @JoinTable(name = "user_roles", joinColumns = {
             @JoinColumn(name = "user_name", referencedColumnName = "user_name")}, inverseJoinColumns = {
@@ -52,15 +59,22 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(String userName, String userPass) {
+    public User(String userName, String userPass, String test ) {
     this.userName = userName;
     this.userPass = BCrypt.hashpw(userPass, BCrypt.gensalt());
+    this.test = test;
   }
+    public User(UserDTO userDTO) {
+        this.userName = userDTO.getUserName();
+        this.userPass = BCrypt.hashpw(userDTO.getPassword(), BCrypt.gensalt());
+    }
 
     public boolean verifyPassword(String pw) {
         return BCrypt.checkpw(pw, userPass);
     }
 
+    public String getTest() { return test; }
+    public void setTest(String test) { this.test = test; }
     public String getUserName() { return userName; }
     public void setUserName(String userName) { this.userName = userName; }
     public String getUserPass() { return this.userPass; }

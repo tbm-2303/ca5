@@ -36,7 +36,6 @@ public class DemoResource {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static final UserFacade FACADE = UserFacade.getUserFacade(EMF_Creator.createEntityManagerFactory());
 
-
     @Context
     private UriInfo context;
 
@@ -53,7 +52,7 @@ public class DemoResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("count")
-    public String allUsers() {
+    public String userCount() {
 
         EntityManager em = EMF.createEntityManager();
         try {
@@ -73,9 +72,9 @@ public class DemoResource {
 
         EntityManager em = EMF.createEntityManager();
 
-        User user = new User("timmy", "timmy123");
-        User admin = new User("james", "james123");
-        User both = new User("kent", "kent123");
+        User user = new User("timmy", "timmy123", "test1");
+        User admin = new User("james", "james123", "test2");
+        User both = new User("kent", "kent123", "test3");
 
         em.getTransaction().begin();
         Role userRole = new Role("user");
@@ -118,7 +117,7 @@ public class DemoResource {
         return sb.toString();
     }
 
-
+    //YES
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     @Path("UserByName/{username}")
@@ -128,6 +127,25 @@ public class DemoResource {
                 .entity(GSON.toJson(user))
                 .build();
     }
+
+    //update user
+    @Path("{username}")
+    @PUT
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    public Response update(@PathParam("username") String username, String user) {
+        UserDTO userDTO = GSON.fromJson(user, UserDTO.class);
+        UserDTO updated = FACADE.update(userDTO);
+        return Response.ok().entity(GSON.toJson(updated)).build();
+    }
+
+
+
+
+
+
+
+
 
 
 

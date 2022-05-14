@@ -10,18 +10,21 @@ public class UserDTO {
     private String userName;
     private String password;
     private List<Role> roleList;
+    private String test;
 
     public UserDTO(){
 
     }
-    public UserDTO(String userName, String password){
+    public UserDTO(String userName, String password, String test){
         this.userName = userName;
         this.password = password;
+        this.test = test;
     }
 
     public UserDTO(User user){
         this.userName = user.getUserName();
         this.password = user.getUserPass();
+        this.test = user.getTest();
     }
 
     public static List<UserDTO> getDtos(List<User> user) {
@@ -32,6 +35,8 @@ public class UserDTO {
         return userDTOS;
     }
 
+    public String getTest() { return test; }
+    public void setTest(String test) { this.test = test; }
     public List<Role> getRoleList() { return roleList; }
     public void setRoleList(List<Role> roleList) { this.roleList = roleList; }
     public String getUserName() { return userName; }

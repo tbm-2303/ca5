@@ -55,7 +55,7 @@ public class UserFacade {
         }
         return user;
     }
-
+    //YES
     public List<UserDTO> getAllUsers() throws EntityNotFoundException {
         EntityManager em = emf.createEntityManager();
         TypedQuery<User> typedQueryUser
@@ -68,7 +68,7 @@ public class UserFacade {
         }
         return userDTOS;
     }
-
+    //YES
     public List<String> getAllUsernames() {
         EntityManager em = emf.createEntityManager();
         TypedQuery<User> query = em.createQuery("SELECT u FROM User u", User.class);
@@ -78,7 +78,7 @@ public class UserFacade {
         }
         return usernames;
     }
-
+    //YES
     public UserDTO getUserByName(String username) throws NotFoundException {
         EntityManager em = emf.createEntityManager();
         User user;
@@ -92,8 +92,38 @@ public class UserFacade {
         }
         return new UserDTO(user);
     }
+    public User getUserByName1(String username) throws NotFoundException {
+        EntityManager em = emf.createEntityManager();
+        User user;
+        try {
+            user = em.find(User.class, username);
+            if (user == null) {
+                throw new NotFoundException("No user with this name exists");
+            }
+        } finally {
+            em.close();
+        }
+        return user;
+    }
 
 
+    public UserDTO update(UserDTO userDTO) throws NotFoundException {
+        EntityManager em = emf.createEntityManager();
+        User found = em.find(User.class, userDTO.getUserName());
+        if (found == null) {
+            throw new NotFoundException("Entity with ID: " + userDTO.getUserName() + " not found");
+        }
+        found.setTest(userDTO.getTest());
+
+        try {
+            em.getTransaction().begin();
+           em.merge(found);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        return new UserDTO(found);
+    }
 
 
 
