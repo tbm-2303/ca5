@@ -94,7 +94,7 @@ public class DemoResource {
 
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    @Path("/all")
+    @Path("/allusers")
     public Response getAllUsers() throws EntityNotFoundException {
         List<User> users = FACADE.getAllUsers();
         return Response
