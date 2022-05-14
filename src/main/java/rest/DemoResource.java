@@ -49,10 +49,10 @@ public class DemoResource {
         return "{\"msg\":\"Hello anonymous\"}";
     }
 
-    //Just to verify if the database is setup
+    //YES
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("all")
+    @Path("count")
     public String allUsers() {
 
         EntityManager em = EMF.createEntityManager();
@@ -65,6 +65,7 @@ public class DemoResource {
         }
     }
 
+    //YES
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("setup")
@@ -92,7 +93,7 @@ public class DemoResource {
         return "{\"msg\":\"setup all good\"}";
     }
 
-
+    //YES
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     @Path("/allusers")
@@ -104,6 +105,7 @@ public class DemoResource {
                 .build();
     }
 
+    //YES
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     @Path("allUserNames")
@@ -117,8 +119,15 @@ public class DemoResource {
     }
 
 
-
-
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    @Path("UserByName/{username}")
+    public Response getUserByName(@PathParam("username") String username) throws EntityNotFoundException {
+      UserDTO user = FACADE.getUserByName(username);
+        return  Response.ok()
+                .entity(GSON.toJson(user))
+                .build();
+    }
 
 
 

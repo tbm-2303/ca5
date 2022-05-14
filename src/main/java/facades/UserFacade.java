@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.TypedQuery;
+import javax.ws.rs.NotFoundException;
 
 import security.errorhandling.AuthenticationException;
 import utils.Utility;
@@ -25,7 +26,6 @@ public class UserFacade {
 
     private UserFacade() {
     }
-
     /**
      *
      * @param _emf
@@ -42,7 +42,6 @@ public class UserFacade {
         return emf.createEntityManager();
     }
 
-
     public User getVeryfiedUser(String username, String password) throws AuthenticationException {
         EntityManager em = emf.createEntityManager();
         User user;
@@ -57,31 +56,6 @@ public class UserFacade {
         return user;
     }
 
-    public JsonObject getRandomCatFact() {
-        return Utility.fetchData("https://catfact.ninja/fact");
-    }
-
-    public JsonObject getRandomJoke() {
-        return Utility.fetchData("https://api.chucknorris.io/jokes/random");
-    }
-
-    //todo: make more facade methods for persisting and updating data.
-    public User create(User user) {
-        EntityManager em = getEntityManager();
-        Role role = em.find(Role.class, "user");
-        user.addRole(role);
-        try {
-            em.getTransaction().begin();
-            em.persist(user);
-            em.getTransaction().commit();
-
-        } finally {
-            em.close();
-        }
-        return user;
-    }
-
-
     public List<UserDTO> getAllUsers() throws EntityNotFoundException {
         EntityManager em = emf.createEntityManager();
         TypedQuery<User> typedQueryUser
@@ -95,7 +69,6 @@ public class UserFacade {
         return userDTOS;
     }
 
-
     public List<String> getAllUsernames() {
         EntityManager em = emf.createEntityManager();
         TypedQuery<User> query = em.createQuery("SELECT u FROM User u", User.class);
@@ -104,6 +77,20 @@ public class UserFacade {
             usernames.add(u.getUserName());
         }
         return usernames;
+    }
+
+    public UserDTO getUserByName(String username) throws NotFoundException {
+        EntityManager em = emf.createEntityManager();
+        User user;
+        try {
+            user = em.find(User.class, username);
+            if (user == null) {
+                throw new NotFoundException("No user with this name exists");
+            }
+        } finally {
+            em.close();
+        }
+        return new UserDTO(user);
     }
 
 
@@ -145,9 +132,13 @@ public class UserFacade {
 
 
 
+    public JsonObject getRandomCatFact() {
+        return Utility.fetchData("https://catfact.ninja/fact");
+    }
 
-
-
+    public JsonObject getRandomJoke() {
+        return Utility.fetchData("https://api.chucknorris.io/jokes/random");
+    }
 
     public boolean usernameExists(String username) {
         EntityManager em = emf.createEntityManager();
