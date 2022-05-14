@@ -52,7 +52,9 @@ public class TimelineFacade {
                 throw new NotFoundException("No user with this name exists");
             }
             Timeline timeline = new Timeline(timelineDTO.getDescription(), user);
+            user.addTimeline(timeline);
             em.getTransaction().begin();
+            em.merge(user);
             em.persist(timeline);
             em.getTransaction().commit();
         } finally {
