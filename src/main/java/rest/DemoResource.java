@@ -104,7 +104,17 @@ public class DemoResource {
                 .build();
     }
 
-
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    @Path("allUserNames")
+    public String getAllUsersNames() throws EntityNotFoundException {
+        List<String> usernames = FACADE.getAllUsernames();
+        StringBuilder sb = new StringBuilder();
+        for (String username : usernames) {
+            sb.append(username).append("\n");
+        }
+        return sb.toString();
+    }
 
 
 

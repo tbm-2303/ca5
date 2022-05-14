@@ -96,6 +96,68 @@ public class UserFacade {
     }
 
 
+    public List<String> getAllUsernames() {
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<User> query = em.createQuery("SELECT u FROM User u", User.class);
+        List<String> usernames = new ArrayList<>();
+        for (User u : query.getResultList()) {
+            usernames.add(u.getUserName());
+        }
+        return usernames;
+    }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public boolean usernameExists(String username) {
+        EntityManager em = emf.createEntityManager();
+        User user;
+        try {
+            user = em.find(User.class, username);
+        } finally {
+            em.close();
+        }
+        return user != null;
+    }
 
 }
