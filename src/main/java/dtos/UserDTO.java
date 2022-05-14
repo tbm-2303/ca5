@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDTO {
-    private String userName;
+    private String username;
     private String password;
     private List<Role> roleList;
     private String test;
@@ -16,13 +16,13 @@ public class UserDTO {
 
     }
     public UserDTO(String userName, String password, String test){
-        this.userName = userName;
+        this.username = userName;
         this.password = password;
         this.test = test;
     }
 
     public UserDTO(User user){
-        this.userName = user.getUserName();
+        this.username = user.getUserName();
         this.password = user.getUserPass();
         this.test = user.getTest();
     }
@@ -39,15 +39,15 @@ public class UserDTO {
     public void setTest(String test) { this.test = test; }
     public List<Role> getRoleList() { return roleList; }
     public void setRoleList(List<Role> roleList) { this.roleList = roleList; }
-    public String getUserName() { return userName; }
-    public void setUserName(String userName) { this.userName = userName; }
+    public String getUserName() { return username; }
+    public void setUserName(String userName) { this.username = userName; }
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
 
 
     public String toString(){
         return "UserDTO{" +
-                "username:" + userName +
+                "username:" + username +
                 ", password:" + password +
                 "}";
     }

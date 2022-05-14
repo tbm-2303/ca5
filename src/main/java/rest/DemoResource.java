@@ -128,6 +128,7 @@ public class DemoResource {
                 .build();
     }
 
+
     //update user
     @Path("{username}")
     @PUT
