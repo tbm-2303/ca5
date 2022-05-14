@@ -13,9 +13,11 @@ import utils.EMF_Creator;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityNotFoundException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.sql.Time;
+import java.util.List;
 
 /**
  * @author lam@cphbusiness.dk
@@ -66,5 +68,17 @@ public class TimelineResource {
         return GSON.toJson(createdTimeline);
 
     }
+    //YES
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    @Path("alltimelines")
+    public Response getAllTimelines() throws EntityNotFoundException {
+        List<TimelineDTO> timelineDTOS = FACADE.getAllTimelines();
+        return Response
+                .ok()
+                .entity(GSON.toJson(timelineDTOS))
+                .build();
+    }
+
 
 }

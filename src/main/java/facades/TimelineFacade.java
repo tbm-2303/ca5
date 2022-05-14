@@ -2,11 +2,14 @@ package facades;
 
 import dtos.RenameMeDTO;
 import dtos.TimelineDTO;
+import dtos.UserDTO;
 import entities.RenameMe;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.NotFoundException;
 
@@ -61,6 +64,19 @@ public class TimelineFacade {
             em.close();
         }
         return timelineDTO;
+    }
+
+    public List<TimelineDTO> getAllTimelines() throws EntityNotFoundException {
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<Timeline> typedQueryUser
+                = em.createQuery("SELECT t FROM Timeline t", Timeline.class);
+        List<Timeline> timelineList = typedQueryUser.getResultList();
+
+        List<TimelineDTO> timelineDTOS = new ArrayList<>();
+        for (Timeline t : timelineList) {
+            timelineDTOS.add(new TimelineDTO(t));
+        }
+        return timelineDTOS;
     }
 
 }
