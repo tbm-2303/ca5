@@ -92,21 +92,8 @@ public class UserFacade {
         }
         return new UserDTO(user);
     }
-    public User getUserByName1(String username) throws NotFoundException {
-        EntityManager em = emf.createEntityManager();
-        User user;
-        try {
-            user = em.find(User.class, username);
-            if (user == null) {
-                throw new NotFoundException("No user with this name exists");
-            }
-        } finally {
-            em.close();
-        }
-        return user;
-    }
 
-
+    //YES
     public UserDTO update(UserDTO userDTO) throws NotFoundException {
         EntityManager em = emf.createEntityManager();
         User found = em.find(User.class, userDTO.getUserName());
