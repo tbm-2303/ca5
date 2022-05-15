@@ -1,20 +1,14 @@
 package dtos;
 
-
 import entities.Spot;
-import entities.Timeline;
-
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SpotDTO {
-    private Integer id;
+    private Long id;
     private String description;
 
-
     public SpotDTO() {
-
     }
 
     public SpotDTO(Spot spot) {
@@ -30,21 +24,10 @@ public class SpotDTO {
         return spotDTOS;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 
     @Override
     public String toString() {

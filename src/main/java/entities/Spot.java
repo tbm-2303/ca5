@@ -10,7 +10,7 @@ public class Spot {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Integer id;
+    private Long id;
 
     @Column(name = "description")
     private String description;
@@ -28,8 +28,8 @@ public class Spot {
     }
 
 
-    public Integer getId() { return id; }
-    public void setId(Integer id) { this.id = id; }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
     public Timeline getTimeline() { return timeline; }

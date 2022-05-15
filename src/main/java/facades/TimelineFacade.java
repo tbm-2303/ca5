@@ -1,10 +1,12 @@
 package facades;
 
 import dtos.RenameMeDTO;
+import dtos.SpotDTO;
 import dtos.TimelineDTO;
 import dtos.UserDTO;
 import entities.RenameMe;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -14,6 +16,7 @@ import javax.persistence.TypedQuery;
 import javax.ws.rs.NotFoundException;
 
 //import errorhandling.RenameMeNotFoundException;
+import entities.Spot;
 import entities.Timeline;
 import entities.User;
 import utils.EMF_Creator;
@@ -45,6 +48,29 @@ public class TimelineFacade {
     private EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
+
+
+
+    public SpotDTO createSpot(SpotDTO spotDTO, Long timeline_id) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            Timeline timeline = em.find(Timeline.class, timeline_id);
+            if (timeline == null) {
+                throw new NotFoundException("No timelie with this id exists");
+            }
+            Spot spot = new Spot("description");
+            timeline.addSpot(spot);
+
+            em.getTransaction().begin();
+            em.persist(spot);
+            em.merge(timeline);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        return spotDTO;
+    }
+
 
     //YES
     public TimelineDTO createTimeline(TimelineDTO timelineDTO) {
@@ -78,6 +104,7 @@ public class TimelineFacade {
         }
         return timelineDTOS;
     }
+
 
 }
 

@@ -2,6 +2,7 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dtos.SpotDTO;
 import dtos.TimelineDTO;
 import dtos.UserDTO;
 import entities.Role;
@@ -61,6 +62,7 @@ public class TimelineResource {
 //YES
     @POST
     @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
     @Path("create")
     public String createTimeline(String timeline){
         TimelineDTO timelineDTO = GSON.fromJson(timeline, TimelineDTO.class);
@@ -80,5 +82,15 @@ public class TimelineResource {
                 .build();
     }
 
+    @POST
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Path("spot/{id}")
+    public String createSpot(@PathParam("id") Long timeline_id, String spot){
+        SpotDTO spotDTO = GSON.fromJson(spot, SpotDTO.class);
+        SpotDTO createdSpot = FACADE.createSpot(spotDTO,timeline_id);
+        return GSON.toJson(createdSpot);
+
+    }
 
 }
