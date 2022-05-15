@@ -65,7 +65,7 @@ public class TimelineFacade {
         }
         return timelineDTO;
     }
-
+//YES
     public List<TimelineDTO> getAllTimelines() throws EntityNotFoundException {
         EntityManager em = emf.createEntityManager();
         TypedQuery<Timeline> typedQueryUser
