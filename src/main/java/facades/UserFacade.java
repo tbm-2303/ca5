@@ -97,8 +97,6 @@ public class UserFacade {
         if (found == null) {
             throw new NotFoundException("Entity with ID: " + userDTO.getUserName() + " not found");
         }
-        found.setTest(userDTO.getTest());
-
         try {
             em.getTransaction().begin();
            em.merge(found);
