@@ -52,11 +52,14 @@ public class SpotFacade {
             Date date = new Date();
             Timestamp ts = new Timestamp(date.getTime());
             Spot spot = new Spot(spotDTO.getDescription(),spotDTO.getName(), ts);
+            //create Location location
+            //location.addSpot()
+
             timeline.addSpot(spot);
 
             em.getTransaction().begin();
             em.persist(spot);
-            em.merge(timeline);
+            //em.merge(timeline);
             em.getTransaction().commit();
         } finally {
             em.close();

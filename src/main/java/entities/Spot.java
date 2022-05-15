@@ -28,6 +28,9 @@ public class Spot {
     @JoinColumn(name = "timeline_id")
     private Timeline timeline;
 
+    @ManyToOne
+    @JoinColumn(name = "location_id")
+    private Location location;
 
     public Spot(){
 
@@ -49,4 +52,6 @@ public class Spot {
     public void setDescription(String description) { this.description = description; }
     public Timeline getTimeline() { return timeline; }
     public void setTimeline(Timeline timeline) { this.timeline = timeline; }
+    public Location getLocation() { return location; }
+    public void setLocation(Location location) { this.location = location; }
 }
