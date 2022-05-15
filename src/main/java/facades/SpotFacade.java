@@ -9,6 +9,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.NotFoundException;
+
+import entities.Location;
 import entities.Spot;
 import entities.Timeline;
 
@@ -42,7 +44,7 @@ public class SpotFacade {
     }
 
     //YES
-    public SpotDTO createSpot(SpotDTO spotDTO, Long timeline_id) {
+    public SpotDTO createSpot(SpotDTO spotDTO, Long timeline_id, String country) {
         EntityManager em = emf.createEntityManager();
         try {
             Timeline timeline = em.find(Timeline.class, timeline_id);
@@ -52,8 +54,12 @@ public class SpotFacade {
             Date date = new Date();
             Timestamp ts = new Timestamp(date.getTime());
             Spot spot = new Spot(spotDTO.getDescription(),spotDTO.getName(), ts);
-            //create Location location
-            //location.addSpot()
+            //find the location from the db
+            TypedQuery<Location> query
+                    = em.createQuery("SELECT l FROM Location l where l.name = :country", Location.class);
+            query.setParameter("country", country);
+            Location location = query.getSingleResult();
+            location.addSpot(spot);
             timeline.addSpot(spot);
             em.getTransaction().begin();
             em.persist(spot);
