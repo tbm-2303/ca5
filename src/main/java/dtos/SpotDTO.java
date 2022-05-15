@@ -2,6 +2,7 @@ package dtos;
 
 import entities.Spot;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,7 @@ public class SpotDTO {
     private Long id;
     private String description;
     private String name;
-    private LocalDate timestamp;
+    private Timestamp timestamp;
 
     public SpotDTO() {
     }
@@ -30,8 +31,8 @@ public class SpotDTO {
         return spotDTOS;
     }
 
-    public LocalDate getTimestamp() { return timestamp; }
-    public void setTimestamp(LocalDate timestamp) { this.timestamp = timestamp; }
+    public Timestamp getTimestamp() { return timestamp; }
+    public void setTimestamp(Timestamp timestamp) { this.timestamp = timestamp; }
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
     public Long getId() { return id; }

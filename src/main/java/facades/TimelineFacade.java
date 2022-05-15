@@ -7,7 +7,9 @@ import dtos.UserDTO;
 import entities.RenameMe;
 
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -57,7 +59,9 @@ public class TimelineFacade {
             if (timeline == null) {
                 throw new NotFoundException("No timelie with this id exists");
             }
-            Spot spot = new Spot(spotDTO.getDescription(),spotDTO.getName(), spotDTO.getTimestamp());
+            Date date = new Date();
+            Timestamp ts = new Timestamp(date.getTime());
+            Spot spot = new Spot(spotDTO.getDescription(),spotDTO.getName(), ts);
             timeline.addSpot(spot);
 
             em.getTransaction().begin();
