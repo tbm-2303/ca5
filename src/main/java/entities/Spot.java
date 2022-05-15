@@ -16,6 +16,7 @@ public class Spot {
     private String description;
 
     @ManyToOne
+    @JoinColumn(name = "timeline_id")
     private Timeline timeline;
 
 
