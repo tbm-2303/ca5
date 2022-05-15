@@ -2,17 +2,14 @@ package facades;
 
 import com.google.gson.JsonObject;
 import dtos.UserDTO;
-import entities.Role;
 import entities.User;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.NotFoundException;
-
 import security.errorhandling.AuthenticationException;
 import utils.Utility;
-
 import java.util.ArrayList;
 import java.util.List;
 
