@@ -26,6 +26,13 @@ public class Timeline implements Serializable {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "name", nullable = false, length = 100)
+    private String name;
+    @Column(name = "startDate", nullable = false, length = 30)
+    private String startDate;
+    @Column(name = "endDate", nullable = false, length = 30)
+    private String endDate;
+
     @ManyToOne
     @JoinColumn(name = "username")
     private User user;
@@ -37,9 +44,13 @@ public class Timeline implements Serializable {
 
     public Timeline() {}
 
-    public Timeline(String description, User user){
+    public Timeline(String description, User user, String startDate, String endDate, String name){
         this.description = description;
         this.user = user;
+        this.endDate = endDate;
+        this.startDate = startDate;
+        this.name = name;
+
     }
 
     public Timeline(TimelineDTO dto){
@@ -47,12 +58,22 @@ public class Timeline implements Serializable {
             this.id = dto.getId();
         }
         this.description = dto.getDescription();
+        this.endDate = dto.getEndDate();
+        this.startDate = dto.getStartDate();
+        this.name = dto.getName();
     }
 
     public void addSpot(Spot spot){
         spotList.add(spot);
         spot.setTimeline(this);
     }
+
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+    public String getStartDate() { return startDate; }
+    public void setStartDate(String startDate) { this.startDate = startDate; }
+    public String getEndDate() { return endDate; }
+    public void setEndDate(String endDate) { this.endDate = endDate; }
     public List<Spot> getSpotList() { return spotList; }
     public void setSpotList(List<Spot> spotList) { this.spotList = spotList; }
     public Long getId() { return id; }

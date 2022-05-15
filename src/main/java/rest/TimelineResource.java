@@ -52,7 +52,7 @@ public class TimelineResource {
         EntityManager em = EMF.createEntityManager();
         UserDTO found = userfacade.getUserByName("timmy");//userDTO by name
         User user = em.find(User.class, found.getUserName());//user from db
-        Timeline timeline = new Timeline("description",user);
+        Timeline timeline = new Timeline("description",user,"15-05-22", "16-05-22", "weekend");
 
         em.getTransaction().begin();
         em.persist(timeline);
@@ -90,7 +90,5 @@ public class TimelineResource {
         SpotDTO spotDTO = GSON.fromJson(spot, SpotDTO.class);
         SpotDTO createdSpot = FACADE.createSpot(spotDTO,timeline_id);
         return GSON.toJson(createdSpot);
-
     }
-
 }

@@ -9,20 +9,29 @@ public class TimelineDTO {
     private Long id;
     private String description;
     private String username;
+    private String name;
+    private String startDate;
+    private String endDate;
 
     public TimelineDTO() {
     }
 
-    public TimelineDTO(Long id, String description, String username) {
+    public TimelineDTO(Long id, String description, String username, String name, String startDate, String endDate) {
         this.id = id;
         this.description = description;
         this.username = username;
+        this.name = name;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     public TimelineDTO(Timeline timeline) {
         this.id = timeline.getId();
         this.description = timeline.getDescription();
         this.username = timeline.getUser().getUserName();
+        this.name = timeline.getName();
+        this.startDate = timeline.getStartDate();
+        this.endDate = timeline.getEndDate();
     }
 
     public static List<TimelineDTO> getDtos(List<Timeline> timelines) {
@@ -33,6 +42,13 @@ public class TimelineDTO {
         return timelineDTOS;
     }
 
+    public void setUsername(String username) { this.username = username; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+    public String getStartDate() { return startDate; }
+    public void setStartDate(String startDate) { this.startDate = startDate; }
+    public String getEndDate() { return endDate; }
+    public void setEndDate(String endDate) { this.endDate = endDate; }
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public String getDescription() { return description; }

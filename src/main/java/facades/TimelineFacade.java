@@ -50,7 +50,6 @@ public class TimelineFacade {
     }
 
 
-
     public SpotDTO createSpot(SpotDTO spotDTO, Long timeline_id) {
         EntityManager em = emf.createEntityManager();
         try {
@@ -71,7 +70,6 @@ public class TimelineFacade {
         return spotDTO;
     }
 
-
     //YES
     public TimelineDTO createTimeline(TimelineDTO timelineDTO) {
         EntityManager em = emf.createEntityManager();
@@ -80,7 +78,7 @@ public class TimelineFacade {
             if (user == null) {
                 throw new NotFoundException("No user with this name exists");
             }
-            Timeline timeline = new Timeline(timelineDTO.getDescription(), user);
+            Timeline timeline = new Timeline(timelineDTO.getDescription(), user, timelineDTO.getStartDate(),timelineDTO.getEndDate(),timelineDTO.getName());
             user.addTimeline(timeline);
             em.getTransaction().begin();
             em.merge(user);
@@ -104,6 +102,13 @@ public class TimelineFacade {
         }
         return timelineDTOS;
     }
+
+
+
+
+
+
+
 
 
 }

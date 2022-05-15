@@ -137,7 +137,9 @@ public class DemoResource {
     public Response update(@PathParam("username") String username, String user) {
         UserDTO userDTO = GSON.fromJson(user, UserDTO.class);
         UserDTO updated = FACADE.update(userDTO);
-        return Response.ok().entity(GSON.toJson(updated)).build();
+        return Response.ok()
+                .entity(GSON.toJson(updated))
+                .build();
     }
 
 
