@@ -146,8 +146,7 @@ public class DemoResource {
                 .build();
     }
 
-    //YES
-    //update user
+    //?
     @Path("{username}")
     @PUT
     @Produces({MediaType.APPLICATION_JSON})
