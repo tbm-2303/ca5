@@ -34,6 +34,9 @@ public class TimelineDTO {
         this.name = timeline.getName();
         this.startDate = timeline.getStartDate();
         this.endDate = timeline.getEndDate();
+        for (Spot spot : timeline.getSpotList()) {
+            this.spotList.add((new SpotDTO(spot)));
+        }
     }
 
     public static List<TimelineDTO> getDtos(List<Timeline> timelines) {

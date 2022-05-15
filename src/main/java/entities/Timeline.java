@@ -48,7 +48,6 @@ public class Timeline implements Serializable {
         this.endDate = endDate;
         this.startDate = startDate;
         this.name = name;
-
     }
 
     public Timeline(TimelineDTO dto){
