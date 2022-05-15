@@ -1,9 +1,7 @@
 package dtos;
 
 import entities.Spot;
-
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +11,7 @@ public class SpotDTO {
     private String name;
     private Timestamp timestamp;
     private TimelineDTO timelineDTO;
+    private String country;
 
     public SpotDTO() {
     }
@@ -22,6 +21,7 @@ public class SpotDTO {
         this.description = spot.getDescription();
         this.name = spot.getName();
         this.timestamp = spot.getTimeStamp();
+
     }
 
     public static List<SpotDTO> getDTOS(List<Spot> spot) {
@@ -32,6 +32,8 @@ public class SpotDTO {
         return spotDTOS;
     }
 
+    public String getCountry() {return country; }
+    public void setCountry(String country) { this.country = country; }
     public TimelineDTO getTimelineDTO() { return timelineDTO; }
     public void setTimelineDTO(TimelineDTO timelineDTO) { this.timelineDTO = timelineDTO; }
     public Timestamp getTimestamp() { return timestamp; }

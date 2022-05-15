@@ -44,7 +44,7 @@ public class SpotFacade {
     }
 
     //YES
-    public SpotDTO createSpot(SpotDTO spotDTO, Long timeline_id, String country) {
+    public SpotDTO createSpot(SpotDTO spotDTO, Long timeline_id) {
         EntityManager em = emf.createEntityManager();
         try {
             Timeline timeline = em.find(Timeline.class, timeline_id);
@@ -57,7 +57,7 @@ public class SpotFacade {
             //find the location from the db
             TypedQuery<Location> query
                     = em.createQuery("SELECT l FROM Location l where l.name = :country", Location.class);
-            query.setParameter("country", country);
+            query.setParameter("country", spotDTO.getCountry());
             Location location = query.getSingleResult();
             location.addSpot(spot);
             timeline.addSpot(spot);
