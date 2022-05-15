@@ -21,7 +21,7 @@ public class SpotDTO {
         this.description = spot.getDescription();
         this.name = spot.getName();
         this.timestamp = spot.getTimeStamp();
-
+        this.country = spot.getLocation().getName();
     }
 
     public static List<SpotDTO> getDTOS(List<Spot> spot) {

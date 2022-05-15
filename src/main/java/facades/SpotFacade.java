@@ -54,21 +54,22 @@ public class SpotFacade {
             Date date = new Date();
             Timestamp ts = new Timestamp(date.getTime());
             Spot spot = new Spot(spotDTO.getDescription(),spotDTO.getName(), ts);
-            //find the location from the db
+
             TypedQuery<Location> query
                     = em.createQuery("SELECT l FROM Location l where l.name = :country", Location.class);
             query.setParameter("country", spotDTO.getCountry());
             Location location = query.getSingleResult();
             location.addSpot(spot);
             timeline.addSpot(spot);
+
             em.getTransaction().begin();
             em.persist(spot);
-            //em.merge(timeline);//dont need i guess
             em.getTransaction().commit();
+
+            return new SpotDTO(spot);
         } finally {
             em.close();
         }
-        return spotDTO;
     }
 
     public List<SpotDTO> getSpotsFromTimeline(Long timeline_id) {
