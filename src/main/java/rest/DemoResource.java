@@ -160,7 +160,7 @@ public class DemoResource {
                 .build();
     }
 
-
+    //YES
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     @Path("allLocationNames")

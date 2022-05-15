@@ -35,14 +35,13 @@ public class SpotResource {
 
 
 
-    //yes
+    //testing
     @POST
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
-    @Path("spot/{id}/{country}")
-    public String createSpot(@PathParam("id") Long timeline_id,@PathParam("country") String country, String spot){
+    @Path("spot/{id}")
+    public String createSpot(@PathParam("id") Long timeline_id, String spot){
         SpotDTO spotDTO = GSON.fromJson(spot, SpotDTO.class);
-        spotDTO.setCountry(country);
         SpotDTO createdSpot = FACADE.createSpot(spotDTO,timeline_id);
         return GSON.toJson(createdSpot);
     }
