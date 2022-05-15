@@ -89,5 +89,16 @@ public class TimelineResource {
                 .entity(GSON.toJson(timelineDTOS))
                 .build();
     }
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    @Path("timeline/{timeline_id}")
+    public Response getTimelineById(@PathParam("timeline_id") Long timeline_id) throws EntityNotFoundException {
+        TimelineDTO timelineDTO = FACADE.getTimeline(timeline_id);
+        return Response
+                .ok()
+                .entity(GSON.toJson(timelineDTO))
+                .build();
+    }
+
 
 }

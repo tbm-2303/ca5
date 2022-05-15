@@ -77,7 +77,7 @@ public class TimelineFacade {
         }
         return timelineDTOS;
     }
-
+    //YES
     public List<TimelineDTO> getAllTimelinesFromUser(String username){
         EntityManager em = emf.createEntityManager();
         try {
@@ -95,7 +95,18 @@ public class TimelineFacade {
         }
     }
 
-
+    public TimelineDTO getTimeline(Long id){
+        EntityManager em = emf.createEntityManager();
+        try{
+            TypedQuery<Timeline> query = em.createQuery("SELECT t FROM Timeline t WHERE t.id = :id", Timeline.class);
+            query.setParameter("id", id);
+            Timeline timeline = query.getSingleResult();
+            return new TimelineDTO(timeline);
+        }
+        finally {
+            em.close();
+        }
+    }
 
 }
 
