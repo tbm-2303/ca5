@@ -2,6 +2,7 @@ package facades;
 
 import dtos.SpotDTO;
 import dtos.TimelineDTO;
+
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,6 +12,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.NotFoundException;
+
 import entities.Spot;
 import entities.Timeline;
 import entities.User;
@@ -44,7 +46,6 @@ public class TimelineFacade {
     }
 
 
-
     //YES
     public TimelineDTO createTimeline(TimelineDTO timelineDTO) {
         EntityManager em = emf.createEntityManager();
@@ -53,7 +54,7 @@ public class TimelineFacade {
             if (user == null) {
                 throw new NotFoundException("No user with this name exists");
             }
-            Timeline timeline = new Timeline(timelineDTO.getDescription(), user, timelineDTO.getStartDate(),timelineDTO.getEndDate(),timelineDTO.getName());
+            Timeline timeline = new Timeline(timelineDTO.getDescription(), user, timelineDTO.getStartDate(), timelineDTO.getEndDate(), timelineDTO.getName());
             user.addTimeline(timeline);
             em.getTransaction().begin();
             em.merge(user);
@@ -64,7 +65,8 @@ public class TimelineFacade {
         }
         return timelineDTO;
     }
-//YES
+
+    //YES
     public List<TimelineDTO> getAllTimelines() throws EntityNotFoundException {
         EntityManager em = emf.createEntityManager();
         TypedQuery<Timeline> typedQueryUser
@@ -77,8 +79,9 @@ public class TimelineFacade {
         }
         return timelineDTOS;
     }
+
     //YES
-    public List<TimelineDTO> getAllTimelinesFromUser(String username){
+    public List<TimelineDTO> getAllTimelinesFromUser(String username) {
         EntityManager em = emf.createEntityManager();
         try {
             TypedQuery<Timeline> query = em.createQuery("SELECT t FROM Timeline t WHERE t.user.userName = :username", Timeline.class);
@@ -90,26 +93,25 @@ public class TimelineFacade {
             }
             return timelineDTOS;
 
-        }finally {
+        } finally {
             em.close();
         }
     }
 
-    public TimelineDTO getTimeline(Long id) throws EntityNotFoundException{
+    public TimelineDTO getTimeline(Long id) throws EntityNotFoundException {
         EntityManager em = emf.createEntityManager();
-        try{
-            TypedQuery<Timeline> query = em.createQuery("SELECT t FROM Timeline t WHERE t.id = :id", Timeline.class);
-            query.setParameter("id", id);
-            Timeline timeline = query.getSingleResult();
+        Timeline timeline;
+        try {
+            timeline = em.find(Timeline.class, id);
             if (timeline == null) {
                 throw new EntityNotFoundException("No timeline with this id exists");
             }
-            return new TimelineDTO(timeline);
-        }
-        finally {
+        } finally {
             em.close();
         }
+        return new TimelineDTO(timeline);
     }
+
 
 }
 
