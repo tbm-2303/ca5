@@ -40,8 +40,6 @@ public class Timeline implements Serializable {
     @OneToMany(mappedBy = "timeline", cascade = {CascadeType.PERSIST})
     private List<Spot> spotList = new ArrayList<>();
 
-
-
     public Timeline() {}
 
     public Timeline(String description, User user, String startDate, String endDate, String name){
