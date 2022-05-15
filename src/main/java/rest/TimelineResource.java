@@ -82,6 +82,7 @@ public class TimelineResource {
                 .build();
     }
 
+    //YES
     @POST
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
@@ -91,4 +92,17 @@ public class TimelineResource {
         SpotDTO createdSpot = FACADE.createSpot(spotDTO,timeline_id);
         return GSON.toJson(createdSpot);
     }
+
+    
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    @Path("spots/{id}")
+    public Response getSpotsFromTimeline(@PathParam("id") Long timeline_id) throws EntityNotFoundException {
+        List<SpotDTO> spotDTOS = FACADE.getSpotsFromTimeline(timeline_id);
+        return Response
+                .ok()
+                .entity(GSON.toJson(spotDTOS))
+                .build();
+    }
+
 }

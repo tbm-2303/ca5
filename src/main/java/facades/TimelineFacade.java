@@ -51,7 +51,7 @@ public class TimelineFacade {
         return emf.createEntityManager();
     }
 
-
+    //YES
     public SpotDTO createSpot(SpotDTO spotDTO, Long timeline_id) {
         EntityManager em = emf.createEntityManager();
         try {
@@ -108,12 +108,18 @@ public class TimelineFacade {
     }
 
 
+    public List<SpotDTO> getSpotsFromTimeline(Long timeline_id) {
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<Spot> query
+                = em.createQuery("SELECT s FROM Spot s where s.timeline.id = :timeline_id", Spot.class);
+        query.setParameter("timeline_id", timeline_id);
+        List<Spot> spotList = query.getResultList();
 
-
-
-
-
-
-
+        List<SpotDTO> spotDTOS = new ArrayList<>();
+        for (Spot spot : spotList) {
+            spotDTOS.add(new SpotDTO(spot));
+        }
+        return spotDTOS;
+    }
 }
 
