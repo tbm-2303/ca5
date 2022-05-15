@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import dtos.UserDTO;
+import entities.Location;
 import entities.Role;
 import entities.User;
 
@@ -91,6 +92,19 @@ public class DemoResource {
         em.getTransaction().commit();
         return "{\"msg\":\"setup all good\"}";
     }
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("setup2")
+    public String setup2(){
+
+        EntityManager em = EMF.createEntityManager();
+        Location location = new Location("Q889","Afghanistan","Country");
+        em.getTransaction().begin();
+        em.persist(location);
+        em.getTransaction().commit();
+        return "{\"msg\":\"afghan test\"}";
+    }
+
 
     //YES
     @GET

@@ -54,12 +54,10 @@ public class SpotFacade {
             Spot spot = new Spot(spotDTO.getDescription(),spotDTO.getName(), ts);
             //create Location location
             //location.addSpot()
-
             timeline.addSpot(spot);
-
             em.getTransaction().begin();
             em.persist(spot);
-            //em.merge(timeline);
+            //em.merge(timeline);//dont need i guess
             em.getTransaction().commit();
         } finally {
             em.close();

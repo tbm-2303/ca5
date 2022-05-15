@@ -28,7 +28,8 @@ public class Location implements Serializable {
     public Location() {
     }
 
-    public Location(String name, String type) {
+    public Location(String id, String name, String type) {
+        this.id = id;
         this.name = name;
         this.type = type;
     }
