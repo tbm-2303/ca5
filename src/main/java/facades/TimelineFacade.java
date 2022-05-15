@@ -95,14 +95,14 @@ public class TimelineFacade {
         }
     }
 
-    public TimelineDTO getTimeline(Long id){
+    public TimelineDTO getTimeline(Long id) throws EntityNotFoundException{
         EntityManager em = emf.createEntityManager();
         try{
             TypedQuery<Timeline> query = em.createQuery("SELECT t FROM Timeline t WHERE t.id = :id", Timeline.class);
             query.setParameter("id", id);
             Timeline timeline = query.getSingleResult();
             if (timeline == null) {
-                throw new NotFoundException("No timeline with this id exists");
+                throw new EntityNotFoundException("No timeline with this id exists");
             }
             return new TimelineDTO(timeline);
         }
