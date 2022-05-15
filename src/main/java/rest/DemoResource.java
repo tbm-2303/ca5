@@ -75,9 +75,9 @@ public class DemoResource {
 
         EntityManager em = EMF.createEntityManager();
 
-        User user = new User("timmy", "timmy123", "test1");
-        User admin = new User("james", "james123", "test2");
-        User both = new User("kent", "kent123", "test3");
+        User user = new User("timmy", "timmy123");
+        User admin = new User("james", "james123");
+        User both = new User("kent", "kent123");
 
         em.getTransaction().begin();
         Role userRole = new Role("user");
