@@ -101,6 +101,9 @@ public class TimelineFacade {
             TypedQuery<Timeline> query = em.createQuery("SELECT t FROM Timeline t WHERE t.id = :id", Timeline.class);
             query.setParameter("id", id);
             Timeline timeline = query.getSingleResult();
+            if (timeline == null) {
+                throw new NotFoundException("No timeline with this id exists");
+            }
             return new TimelineDTO(timeline);
         }
         finally {
