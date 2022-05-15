@@ -1,4 +1,5 @@
 package dtos;
+import entities.Spot;
 import entities.Timeline;
 import entities.User;
 
@@ -12,6 +13,7 @@ public class TimelineDTO {
     private String name;
     private String startDate;
     private String endDate;
+    private List<SpotDTO> spotList = new ArrayList<>();
 
     public TimelineDTO() {
     }
@@ -42,6 +44,8 @@ public class TimelineDTO {
         return timelineDTOS;
     }
 
+    public List<SpotDTO> getSpotList() { return spotList; }
+    public void setSpotList(List<SpotDTO> spotList) { this.spotList = spotList; }
     public void setUsername(String username) { this.username = username; }
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }

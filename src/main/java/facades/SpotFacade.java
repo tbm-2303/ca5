@@ -77,5 +77,17 @@ public class SpotFacade {
         }
         return spotDTOS;
     }
+
+    public List<SpotDTO>  test(){
+        EntityManager em = emf.createEntityManager();
+        Long timeline_ID = 1L;
+        Timeline timeline = em.find(Timeline.class,timeline_ID);
+        List<Spot> spotList = timeline.getSpotList();
+        List<SpotDTO> spotDTOS = new ArrayList<>();
+        for (Spot spot : spotList) {
+            spotDTOS.add(new SpotDTO(spot));
+        }
+        return spotDTOS;
+    }
 }
 

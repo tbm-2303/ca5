@@ -12,6 +12,7 @@ public class SpotDTO {
     private String description;
     private String name;
     private Timestamp timestamp;
+    private TimelineDTO timelineDTO;
 
     public SpotDTO() {
     }
@@ -31,6 +32,8 @@ public class SpotDTO {
         return spotDTOS;
     }
 
+    public TimelineDTO getTimelineDTO() { return timelineDTO; }
+    public void setTimelineDTO(TimelineDTO timelineDTO) { this.timelineDTO = timelineDTO; }
     public Timestamp getTimestamp() { return timestamp; }
     public void setTimestamp(Timestamp timestamp) { this.timestamp = timestamp; }
     public String getName() { return name; }

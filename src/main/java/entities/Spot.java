@@ -29,8 +29,6 @@ public class Spot {
     private Timeline timeline;
 
 
-
-
     public Spot(){
 
     }

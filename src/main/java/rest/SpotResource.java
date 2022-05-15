@@ -57,5 +57,15 @@ public class SpotResource {
                 .entity(GSON.toJson(spotDTOS))
                 .build();
     }
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    @Path("test")
+    public Response test() throws EntityNotFoundException {
+        List<SpotDTO> spotDTOS = FACADE.test();
+        return Response
+                .ok()
+                .entity(GSON.toJson(spotDTOS))
+                .build();
+    }
 
 }
