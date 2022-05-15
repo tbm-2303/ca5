@@ -1,5 +1,6 @@
 package facades;
 
+import dtos.LocationDTO;
 import entities.Location;
 import entities.User;
 
@@ -48,7 +49,18 @@ public class LocationFacade {
         return countries;
     }
 
+    public LocationDTO findLocationByWikiID(String locationID) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            TypedQuery<Location> query = em.createQuery("SELECT l FROM Location l WHERE l.id = :id", Location.class);
+            query.setParameter("id", locationID);
+            Location location = query.getSingleResult();
+            em.getTransaction().commit();
+            return new LocationDTO(location);
+        } finally {
+            em.close();
+        }
+    }
 
 }
-
-

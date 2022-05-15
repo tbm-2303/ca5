@@ -78,6 +78,16 @@ public class TimelineResource {
                 .entity(GSON.toJson(timelineDTOS))
                 .build();
     }
-
+    //YES
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    @Path("alltimelines/{username}")
+    public Response getAllTimelinesFromUser(@PathParam("username") String username) throws EntityNotFoundException {
+        List<TimelineDTO> timelineDTOS = FACADE.getAllTimelinesFromUser(username);
+        return Response
+                .ok()
+                .entity(GSON.toJson(timelineDTOS))
+                .build();
+    }
 
 }
