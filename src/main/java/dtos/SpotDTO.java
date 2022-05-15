@@ -1,6 +1,8 @@
 package dtos;
 
 import entities.Spot;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +10,7 @@ public class SpotDTO {
     private Long id;
     private String description;
     private String name;
+    private LocalDate timestamp;
 
     public SpotDTO() {
     }
@@ -16,6 +19,7 @@ public class SpotDTO {
         this.id = spot.getId();
         this.description = spot.getDescription();
         this.name = spot.getName();
+        this.timestamp = spot.getTimeStamp();
     }
 
     public static List<SpotDTO> getDTOS(List<Spot> spot) {
@@ -26,6 +30,8 @@ public class SpotDTO {
         return spotDTOS;
     }
 
+    public LocalDate getTimestamp() { return timestamp; }
+    public void setTimestamp(LocalDate timestamp) { this.timestamp = timestamp; }
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
     public Long getId() { return id; }

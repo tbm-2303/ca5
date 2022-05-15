@@ -57,7 +57,7 @@ public class TimelineFacade {
             if (timeline == null) {
                 throw new NotFoundException("No timelie with this id exists");
             }
-            Spot spot = new Spot(spotDTO.getDescription(),spotDTO.getName());
+            Spot spot = new Spot(spotDTO.getDescription(),spotDTO.getName(), spotDTO.getTimestamp());
             timeline.addSpot(spot);
 
             em.getTransaction().begin();

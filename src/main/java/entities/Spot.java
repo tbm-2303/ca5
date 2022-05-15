@@ -1,6 +1,9 @@
 package entities;
 
 import javax.persistence.*;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "Spot")
@@ -22,15 +25,23 @@ public class Spot {
     @JoinColumn(name = "timeline_id")
     private Timeline timeline;
 
+    @Column(name = "timestamp")
+    private LocalDate timeStamp;
+
+
 
     public Spot(){
 
     }
-    public Spot(String description, String name ){
+    public Spot(String description, String name, LocalDate timestamp){
         this.description = description;
         this.name = name;
+        this.timeStamp = timestamp;
     }
 
+
+    public LocalDate getTimeStamp() { return timeStamp; }
+    public void setTimeStamp(LocalDate timeStamp) { this.timeStamp = timeStamp; }
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
     public Long getId() { return id; }
