@@ -3,6 +3,7 @@ package facades;
 import dtos.SpotDTO;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -71,7 +72,7 @@ public class SpotFacade {
             em.close();
         }
     }
-
+    //YES
     public List<SpotDTO> getSpotsFromTimeline(Long timeline_id) {
         EntityManager em = emf.createEntityManager();
         TypedQuery<Spot> query
@@ -83,9 +84,11 @@ public class SpotFacade {
         for (Spot spot : spotList) {
             spotDTOS.add(new SpotDTO(spot));
         }
-        return spotDTOS;
+        spotDTOS.sort(Comparator.comparing(SpotDTO::getTimestamp));
+        return new ArrayList<>(spotDTOS);
     }
 
+    //YES
     public List<SpotDTO>  test(){
         EntityManager em = emf.createEntityManager();
         Long timeline_ID = 1L;

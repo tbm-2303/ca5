@@ -38,7 +38,7 @@ public class LocationFacade {
     private EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
-
+//yes
     public List<String> getAllLocationNames() {
         EntityManager em = emf.createEntityManager();
         TypedQuery<Location> query = em.createQuery("SELECT l FROM Location l", Location.class);
@@ -48,7 +48,7 @@ public class LocationFacade {
         }
         return countries;
     }
-
+//no endpoint
     public LocationDTO findLocationByWikiID(String locationID) {
         EntityManager em = emf.createEntityManager();
         try {
