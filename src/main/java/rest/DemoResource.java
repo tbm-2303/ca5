@@ -23,6 +23,7 @@ import javax.persistence.TypedQuery;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 
+import facades.LocationFacade;
 import facades.UserFacade;
 import utils.EMF_Creator;
 import utils.HttpUtils;
@@ -36,6 +37,7 @@ public class DemoResource {
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static final UserFacade FACADE = UserFacade.getUserFacade(EMF_Creator.createEntityManagerFactory());
+    private static final LocationFacade locationfacade = LocationFacade.getLocationFacade(EMF_Creator.createEntityManagerFactory());
 
     @Context
     private UriInfo context;
@@ -92,6 +94,8 @@ public class DemoResource {
         em.getTransaction().commit();
         return "{\"msg\":\"setup all good\"}";
     }
+
+    //YES
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("setup2")
@@ -156,6 +160,18 @@ public class DemoResource {
                 .build();
     }
 
+
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    @Path("allLocationNames")
+    public String getAllLocaionNames() throws EntityNotFoundException {
+        List<String> countries = locationfacade.getAllLocationNames();
+        StringBuilder sb = new StringBuilder();
+        for (String country : countries) {
+            sb.append(country).append("\n");
+        }
+        return sb.toString();
+    }
 
 
 
