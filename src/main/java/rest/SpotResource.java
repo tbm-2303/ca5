@@ -35,6 +35,7 @@ public class SpotResource {
 
 
     //YES
+    //create spot with location from db
     @POST
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
@@ -44,6 +45,18 @@ public class SpotResource {
         SpotDTO createdSpot = FACADE.createSpot(spotDTO,timeline_id);
         return GSON.toJson(createdSpot);
     }
+    //yes
+    //create spot with new location
+    @POST
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Path("spot2/{id}")
+    public String createSpot2(@PathParam("id") Long timeline_id, String spot){
+        SpotDTO spotDTO = GSON.fromJson(spot, SpotDTO.class);
+        SpotDTO createdSpot = FACADE.createSpot2(spotDTO,timeline_id);
+        return GSON.toJson(createdSpot);
+    }
+
 
     //YES
     @GET
@@ -69,15 +82,6 @@ public class SpotResource {
                 .build();
     }
 
-    //yes
-    @POST
-    @Produces({MediaType.APPLICATION_JSON})
-    @Consumes({MediaType.APPLICATION_JSON})
-    @Path("spot2/{id}")
-    public String createSpot2(@PathParam("id") Long timeline_id, String spot){
-        SpotDTO spotDTO = GSON.fromJson(spot, SpotDTO.class);
-        SpotDTO createdSpot = FACADE.createSpot2(spotDTO,timeline_id);
-        return GSON.toJson(createdSpot);
-    }
+
 
 }
