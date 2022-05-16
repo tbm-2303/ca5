@@ -22,7 +22,7 @@ public class Spot {
     private String name;
 
     @Column(name = "timestamp")
-    private LocalDate timeStamp;
+    private Timestamp timeStamp;
 
     @ManyToOne
     @JoinColumn(name = "timeline_id")
@@ -35,15 +35,15 @@ public class Spot {
     public Spot(){
 
     }
-    public Spot(String description, String name, LocalDate timestamp){
+    public Spot(String description, String name, Timestamp timestamp){
         this.description = description;
         this.name = name;
         this.timeStamp = timestamp;
     }
 
 
-    public LocalDate getTimeStamp() { return timeStamp; }
-    public void setTimeStamp(LocalDate timeStamp) { this.timeStamp = timeStamp; }
+    public Timestamp getTimeStamp() { return timeStamp; }
+    public void setTimeStamp(Timestamp timeStamp) { this.timeStamp = timeStamp; }
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
     public Long getId() { return id; }

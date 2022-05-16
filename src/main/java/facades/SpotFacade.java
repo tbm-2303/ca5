@@ -54,13 +54,15 @@ public class SpotFacade {
             if (timeline == null) {
                 throw new NotFoundException("No timeline with this id exists");
             }
+            Date date = new Date();
+            Timestamp ts = new Timestamp(date.getTime());
            //testing
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
-            String date = spotDTO.getTimestamp();
-            LocalDate localDate = LocalDate.parse(date, formatter);
+            //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+            //String date = spotDTO.getTimestamp();
+            //LocalDate localDate = LocalDate.parse(date, formatter);
             //testing
 
-            Spot spot = new Spot(spotDTO.getDescription(),spotDTO.getName(), localDate);
+            Spot spot = new Spot(spotDTO.getDescription(),spotDTO.getName(), ts);
             TypedQuery<Location> query
                     = em.createQuery("SELECT l FROM Location l where l.name = :country", Location.class);
             query.setParameter("country", spotDTO.getCountry());
