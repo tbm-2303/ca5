@@ -3,6 +3,7 @@ package facades;
 import dtos.SpotDTO;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
@@ -53,9 +54,13 @@ public class SpotFacade {
             if (timeline == null) {
                 throw new NotFoundException("No timeline with this id exists");
             }
-           // Date date = new Date();
-           // Timestamp ts = new Timestamp(date.getTime());
-            Spot spot = new Spot(spotDTO.getDescription(),spotDTO.getName(), spotDTO.getTimestamp());
+           //testing
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+            String date = spotDTO.getTimestamp();
+            LocalDate localDate = LocalDate.parse(date, formatter);
+            //testing
+
+            Spot spot = new Spot(spotDTO.getDescription(),spotDTO.getName(), localDate);
             TypedQuery<Location> query
                     = em.createQuery("SELECT l FROM Location l where l.name = :country", Location.class);
             query.setParameter("country", spotDTO.getCountry());

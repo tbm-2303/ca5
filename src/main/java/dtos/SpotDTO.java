@@ -10,9 +10,10 @@ public class SpotDTO {
     private Long id;
     private String description;
     private String name;
-    private LocalDate timestamp;
     private TimelineDTO timelineDTO;
     private String country;
+
+    private String timestamp;
 
     public SpotDTO() {
     }
@@ -21,7 +22,7 @@ public class SpotDTO {
         this.id = spot.getId();
         this.description = spot.getDescription();
         this.name = spot.getName();
-        this.timestamp = spot.getTimeStamp();
+        this.timestamp = spot.getTimeStamp().toString();
         this.country = spot.getLocation().getName();
     }
 
@@ -37,8 +38,8 @@ public class SpotDTO {
     public void setCountry(String country) { this.country = country; }
     public TimelineDTO getTimelineDTO() { return timelineDTO; }
     public void setTimelineDTO(TimelineDTO timelineDTO) { this.timelineDTO = timelineDTO; }
-    public LocalDate getTimestamp() { return timestamp; }
-    public void setTimestamp(LocalDate timestamp) { this.timestamp = timestamp; }
+    public String getTimestamp() { return timestamp; }
+    public void setTimestamp(String timestamp) { this.timestamp = timestamp; }
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
     public Long getId() { return id; }
