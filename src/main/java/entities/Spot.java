@@ -7,7 +7,6 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "Spot")
-@NamedQueries(@NamedQuery(name = "Spot.deleteAllRows", query = "DELETE FROM Spot"))
 public class Spot {
 
 
@@ -23,7 +22,7 @@ public class Spot {
     private String name;
 
     @Column(name = "timestamp")
-    private Timestamp timestamp;
+    private Timestamp timeStamp;
 
     @ManyToOne
     @JoinColumn(name = "timeline_id")
@@ -39,17 +38,12 @@ public class Spot {
     public Spot(String description, String name, Timestamp timestamp){
         this.description = description;
         this.name = name;
-        this.timestamp = timestamp;
-    }
-    public Spot(String description, String name, Timestamp timestamp, Location location){
-        this.description = description;
-        this.name = name;
-        this.timestamp = timestamp;
+        this.timeStamp = timestamp;
     }
 
 
-    public Timestamp getTimeStamp() { return timestamp; }
-    public void setTimeStamp(Timestamp timeStamp) { this.timestamp = timestamp; }
+    public Timestamp getTimeStamp() { return timeStamp; }
+    public void setTimeStamp(Timestamp timeStamp) { this.timeStamp = timeStamp; }
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
     public Long getId() { return id; }

@@ -3,16 +3,12 @@ package rest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dtos.SpotDTO;
-import dtos.TimelineDTO;
 import facades.SpotFacade;
 import utils.EMF_Creator;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityNotFoundException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -43,9 +39,9 @@ public class SpotResource {
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
     @Path("spot/{id}")
-    public String createSpot(String spot, String name, String description, Timestamp timeStamp, String locationID){
+    public String createSpot(@PathParam("id") Long timeline_id, String spot){
         SpotDTO spotDTO = GSON.fromJson(spot, SpotDTO.class);
-        SpotDTO createdSpot = FACADE.createSpot(name, description, timeStamp, locationID);
+        SpotDTO createdSpot = FACADE.createSpot(spotDTO,timeline_id);
         return GSON.toJson(createdSpot);
     }
 

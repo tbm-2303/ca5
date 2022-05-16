@@ -34,7 +34,7 @@ public class SpotFacadeTest {
     static User user;
     static List<Role> basic = new ArrayList<>();
 
-
+/*
 
     public SpotFacadeTest() {
 
@@ -183,12 +183,13 @@ public class SpotFacadeTest {
 
     }*/
 
-    @Test
+    /*@Test
     void deleteSpotTest(){
         Long id = spot.getId();
         String actual = spotFacade.deleteSpot(id);
         String expected = "The spot with id: " + id + " has been deleted";
         assertEquals(actual, expected);
     }
+    */
 
 }

@@ -10,7 +10,6 @@ import java.util.List;
 
 @Entity
 @Table(name ="Timeline")
-@NamedQueries(@NamedQuery(name = "Timeline.deleteAllRows", query = "DELETE FROM Timeline"))
 public class Timeline implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -36,7 +36,7 @@ public class LocationFacadeTest {
     public static void tearDownClass(){
 
     }
-
+/*
     @BeforeEach
     public void setUp(){
         EntityManager em = emf.createEntityManager();
@@ -87,5 +87,5 @@ public class LocationFacadeTest {
         String actual = locationFacade.deleteLocation(id);
 
         assertEquals(expected, actual);
-    }
+    }*/
 }

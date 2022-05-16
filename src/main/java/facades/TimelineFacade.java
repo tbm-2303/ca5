@@ -12,12 +12,14 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.NotFoundException;
-import javax.ws.rs.WebApplicationException;
 
 import entities.Spot;
 import entities.Timeline;
 import entities.User;
 
+/**
+ * Rename Class to a relevant name Add add relevant facade methods
+ */
 public class TimelineFacade {
 
     private static TimelineFacade instance;
@@ -27,6 +29,10 @@ public class TimelineFacade {
     private TimelineFacade() {
     }
 
+    /**
+     * @param _emf
+     * @return an instance of this facade class.
+     */
     public static TimelineFacade getTimelineFacade(EntityManagerFactory _emf) {
         if (instance == null) {
             emf = _emf;
@@ -104,71 +110,6 @@ public class TimelineFacade {
             em.close();
         }
         return new TimelineDTO(timeline);
-    }
-
-
-    //test virker
-    public TimelineDTO editInterval(Long id, String startDate, String endDate){
-        EntityManager em = emf.createEntityManager();
-        try {
-            TypedQuery<Timeline> query = em.createQuery("SELECT t FROM Timeline t WHERE t.id = :id", Timeline.class);
-            query.setParameter("id", id);
-            Timeline tm = query.getSingleResult();
-            tm.setStartDate(startDate);
-            tm.setEndDate(endDate);
-            em.persist(tm);
-            return new TimelineDTO(tm);
-        } finally {
-            em.close();
-        }
-        //timelineDTO id
-        //select timeline where id = ?
-        //getStartDate + getEndDate
-        //Tag to nye datoer med
-        //Timeline
-    }
-
-    public TimelineDTO seeTimeline(Long id){
-        //get the timeline from id with select t from....
-        EntityManager em = emf.createEntityManager();
-        try{
-            TypedQuery<Timeline> query = em.createQuery("SELECT t FROM Timeline t WHERE t.id = :id", Timeline.class);
-            query.setParameter("id", id);
-            Timeline timeline = query.getSingleResult();
-            return new TimelineDTO(timeline);
-
-        }
-        finally {
-            em.close();
-        }
-        //set the result to a dto
-        //return th result
-    }
-
-    //test og endpoint mangler
-    public String deleteTimeline(Long id){
-        EntityManager em = emf.createEntityManager();
-        Timeline timeline = em.find(Timeline.class, id);
-        if(timeline == null){
-            throw new WebApplicationException("The timeline does not exist");
-        }
-        else{
-            try{
-                em.getTransaction().begin();
-                TypedQuery<Spot> spotQuery = em.createQuery("DELETE FROM Spot s WHERE s.timeline.id = :id", Spot.class);
-                spotQuery.setParameter("id", id);
-                spotQuery.executeUpdate();
-                TypedQuery<Timeline> query = em.createQuery("DELETE FROM Timeline t WHERE t.id = :id", Timeline.class);
-                query.setParameter("id", id);
-                query.executeUpdate();
-                em.getTransaction().commit();
-            }
-            finally {
-                em.close();
-            }
-        }
-
-        return "The timeline has been deleted with id: " + id;
     }
 
 

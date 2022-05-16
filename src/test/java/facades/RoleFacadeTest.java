@@ -15,13 +15,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RoleFacadeTest {
+    /*
     private static EntityManagerFactory emf;
     private static RoleFacade roleFacade;
     Timeline timeline;
 
 
 
-    public RoleFacadeTest (){
+    public RoleFacadeTest(){
 
     }
 
@@ -47,7 +48,8 @@ public class RoleFacadeTest {
         Location location = new Location("Q1", "La La Land", "Country");
         Location location1 = new Location("Q2", "Ingenmandsland", "Country");
 
-        timeline = new Timeline("Første timeline", user, "1990", "2000", "første");
+        timeline = new Timeline("First", "Det her er den første tidslinje",
+                "1990", "2000", user);
 
         try{
             em.getTransaction().begin();
@@ -65,5 +67,5 @@ public class RoleFacadeTest {
         finally {
             em.close();
         }
-    }
+    }*/
 }

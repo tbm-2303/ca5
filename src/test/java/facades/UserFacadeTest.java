@@ -30,7 +30,7 @@ public class UserFacadeTest {
         // clean up database after test is done,
         // or use a persistence unit (test db) with drop-and-create to start up clean on every test
     }
-
+/*
     @BeforeEach
     public void setUp(){
         EntityManager em = emf.createEntityManager();
@@ -59,14 +59,14 @@ public class UserFacadeTest {
         //Remove any data after running each test
     }
 
-    /*@Disabled
+    @Disabled
     @Test
     public void testCount() throws Exception{
 
         assertEquals(2, userFacade.getUserCount());
-    }*/
+    }
 
 
 
-    //write your own tests here
+    //write your own tests here*/
 }
