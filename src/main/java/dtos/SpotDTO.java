@@ -28,8 +28,6 @@ public class SpotDTO {
         this.location = spot.getLocation();
     }
 
-
-
     public static List<SpotDTO> getDTOS(List<Spot> spot) {
         List<SpotDTO> spotDTOS = new ArrayList<>();
         if (spot != null) {
