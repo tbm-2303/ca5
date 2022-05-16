@@ -69,7 +69,7 @@ public class SpotResource {
                 .build();
     }
 
-    //test
+    //yes
     @POST
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})

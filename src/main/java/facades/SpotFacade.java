@@ -108,7 +108,9 @@ public class SpotFacade {
         return spotDTOS;
     }
 
-    public SpotDTO createSpot2(SpotDTO spotDTO, Long timeline_id) { //test
+
+    //yes
+    public SpotDTO createSpot2(SpotDTO spotDTO, Long timeline_id) {
         EntityManager em = emf.createEntityManager();
         try {
             Timeline timeline = em.find(Timeline.class, timeline_id);
@@ -118,7 +120,7 @@ public class SpotFacade {
             Date date = new Date();
             Timestamp ts = new Timestamp(date.getTime());
             Spot spot = new Spot(spotDTO.getDescription(),spotDTO.getName(), ts);
-            Location location = new Location(spotDTO.getLocationDTO().getId(),spotDTO.getLocationDTO().getName(),spotDTO.getLocationDTO().getType());
+            Location location = new Location(spotDTO.getLocationDTO().getWikiId(),spotDTO.getLocationDTO().getName(),spotDTO.getLocationDTO().getType());
 
             location.addSpot(spot);
             timeline.addSpot(spot);

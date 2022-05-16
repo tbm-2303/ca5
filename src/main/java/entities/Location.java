@@ -12,10 +12,13 @@ import java.util.List;
 public class Location implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private String id;
+    private Long id;
+
+    @Column(name = "wikiId")
+    private String wikiId;
 
     @Column(name = "name", nullable = false, length = 100)
     private String name;
@@ -29,14 +32,15 @@ public class Location implements Serializable {
     public Location() {
     }
 
-    public Location(String id, String name, String type) {
-        this.id = id;
+    public Location(String wikiId, String name, String type) {
+        this.wikiId = wikiId;
         this.name = name;
         this.type = type;
     }
 
     public Location(LocationDTO locationDTO) {
         this.id = locationDTO.getId();
+        this.wikiId = locationDTO.getWikiId();
         this.name = locationDTO.getName();
         this.type = locationDTO.getType();
     }
@@ -46,8 +50,10 @@ public class Location implements Serializable {
         spot.setLocation(this);
     }
 
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public String getWikiId() { return wikiId; }
+    public void setWikiId(String wikiId) { this.wikiId = wikiId; }
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
     public String getType() { return type; }

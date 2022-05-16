@@ -8,17 +8,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LocationDTO {
-    private String id;
+    private Long id;
+    private String wikiId;
     private String name;
     private String type;
-    private List<Spot> spots = new ArrayList<>();
+
 
     public LocationDTO() {
     }
 
-    public LocationDTO(String name, String type) {
+    public LocationDTO(String name, String type, String wikiId) {
         this.name = name;
         this.type = type;
+        this.wikiId = wikiId;
+    }
+    public LocationDTO(Long id, String name, String type, String wikiId) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.wikiId = wikiId;
     }
 
     public LocationDTO(Location location) {
@@ -27,13 +35,10 @@ public class LocationDTO {
         }
         this.name = location.getName();
         this.type = location.getType();
+        this.wikiId = location.getWikiId();
     }
 
-    public LocationDTO(String id, String name, String type) {
-        this.id = id;
-        this.name = name;
-        this.type = type;
-    }
+
 
     public static List<LocationDTO> getDtos(List<Location> locations) {
         List <LocationDTO> locationDTOS = new ArrayList<>();
@@ -43,14 +48,15 @@ public class LocationDTO {
         return locationDTOS;
     }
 
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public String getWikiId() { return wikiId; }
+    public void setWikiId(String wikiId) { this.wikiId = wikiId;}
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
     public String getType() { return type; }
     public void setType(String type) { this.type = type; }
-    public List<Spot> getSpots() { return spots; }
-    public void setSpots(List<Spot> spots) { this.spots = spots; }
+
 
     @Override
     public String toString() {
@@ -58,7 +64,7 @@ public class LocationDTO {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", type='" + type + '\'' +
-                ", spots=" + spots +
+
                 '}';
     }
 }
