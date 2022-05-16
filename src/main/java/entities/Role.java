@@ -12,13 +12,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-/**
- *
- * @author Plaul
- */
 @Entity
 @Table(name = "roles")
+@NamedQueries(@NamedQuery(name = "Role.deleteAllRows", query = "DELETE FROM Role"))
 public class Role implements Serializable {
 
     private static final long serialVersionUID = 1L;

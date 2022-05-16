@@ -9,6 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "Location")
+@NamedQueries(@NamedQuery(name = "Location.deleteAllRows", query = "DELETE FROM Location "))
 public class Location implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -58,8 +59,9 @@ public class Location implements Serializable {
     @Override
     public String toString() {
         return "Location{" +
-                "id=" + id +
+                "id='" + id + '\'' +
                 ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
                 '}';
     }
 }

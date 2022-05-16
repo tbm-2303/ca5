@@ -1,5 +1,6 @@
 package facades;
 
+import dtos.LocationDTO;
 import dtos.SpotDTO;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -12,28 +13,23 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.NotFoundException;
+import javax.ws.rs.WebApplicationException;
 
+import dtos.TimelineDTO;
 import entities.Location;
 import entities.Spot;
 import entities.Timeline;
 
-
-/**
- * Rename Class to a relevant name Add add relevant facade methods
- */
 public class SpotFacade {
 
     private static SpotFacade instance;
     private static EntityManagerFactory emf;
+    LocationFacade locationFacade = LocationFacade.getLocationFacade(emf);
 
     //Private Constructor to ensure Singleton
     private SpotFacade() {
     }
 
-    /**
-     * @param _emf
-     * @return an instance of this facade class.
-     */
     public static SpotFacade getSpotFacade(EntityManagerFactory _emf) {
         if (instance == null) {
             emf = _emf;
@@ -47,37 +43,20 @@ public class SpotFacade {
     }
 
     //YES
-    public SpotDTO createSpot(SpotDTO spotDTO, Long timeline_id) {
-        EntityManager em = emf.createEntityManager();
-        try {
-            Timeline timeline = em.find(Timeline.class, timeline_id);
-            if (timeline == null) {
-                throw new NotFoundException("No timeline with this id exists");
-            }
-            Date date = new Date();
-            Timestamp ts = new Timestamp(date.getTime());
-           //testing
-            //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
-            //String date = spotDTO.getTimestamp();
-            //LocalDate localDate = LocalDate.parse(date, formatter);
-            //testing
-
-            Spot spot = new Spot(spotDTO.getDescription(),spotDTO.getName(), ts);
-            TypedQuery<Location> query
-                    = em.createQuery("SELECT l FROM Location l where l.name = :country", Location.class);
-            query.setParameter("country", spotDTO.getCountry());
-            Location location = query.getSingleResult();
-            location.addSpot(spot);
-            timeline.addSpot(spot);
-
-            em.getTransaction().begin();
+    public SpotDTO createSpot(String name, String des, Timestamp timestamp, String locationId){
+        EntityManager em = getEntityManager();
+        LocationDTO locationDTO = locationFacade.findLocation(locationId);
+        Location spotLocation = new Location(locationDTO);
+        Spot spot = new Spot(name, des, timestamp, spotLocation);
+        try{
+            em.getTransaction().begin();;
             em.persist(spot);
             em.getTransaction().commit();
-
-            return new SpotDTO(spot);
-        } finally {
+        }
+        finally {
             em.close();
         }
+        return new SpotDTO(spot);
     }
     //YES
     public List<SpotDTO> getSpotsFromTimeline(Long timeline_id) {
@@ -107,5 +86,71 @@ public class SpotFacade {
         }
         return spotDTOS;
     }
-}
 
+/*
+    public List<String> seeSpot(Long id) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            //find spot where id =
+            TypedQuery <Spot> query = em.createQuery("SELECT s FROM Spot s WHERE s.id = :id", Spot.class);
+            query.setParameter("id", id);
+            Spot spot = query.getSingleResult();
+            String name = spot.getName();
+            String description = spot.getDescription();
+            String timeStamp = spot.getTimeStamp().toString();
+            String location = spot.getLocation().toString();
+            List<String> spotData = new ArrayList<>();
+            spotData.add(name);
+            spotData.add(description);
+            spotData.add(timeStamp);
+            spotData.add(location);
+
+            return spotData;
+        }finally {
+            em.close();
+        }
+    }
+
+    public synchronized SpotDTO editSpot(SpotDTO spotDTO){
+        EntityManager em = emf.createEntityManager();
+        Spot spotUpdated = em.find(Spot.class, spotDTO.getId());
+        try{
+            em.getTransaction().begin();
+            spotUpdated.setName(spotDTO.getName());
+            spotUpdated.setDescription(spotDTO.getDescription());
+            spotUpdated.setTimeStamp(spotDTO.getTimestamp());
+            spotUpdated.setLocation(spotDTO.getLocation());
+            //spotUpdated.setId(spotDTO.getId());
+            //spotUpdated.setTimeline(spotDTO.getTimeline());
+            em.merge(spotUpdated);
+            em.getTransaction().commit();
+            return new SpotDTO(spotUpdated);
+        }finally {
+            em.close();
+        }
+
+    }*/
+    //test virker, og endpoint mangler
+    public String deleteSpot(Long id){
+        EntityManager em = emf.createEntityManager();
+        Spot spot = em.find(Spot.class, id);
+        if(spot == null){
+            throw new WebApplicationException("The timeline does not exist");
+        }
+        else{
+            try{
+                em.getTransaction().begin();
+                TypedQuery<Spot> query = em.createQuery("DELETE FROM Spot s WHERE s.id = :id", Spot.class);
+                query.setParameter("id", id);
+                query.executeUpdate();
+                em.getTransaction().commit();
+            }
+            finally {
+                em.close();
+            }
+        }
+        return "The spot with id: " + id + " has been deleted";
+    }
+
+
+}
