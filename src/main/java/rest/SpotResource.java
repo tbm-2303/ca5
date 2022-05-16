@@ -69,4 +69,15 @@ public class SpotResource {
                 .build();
     }
 
+    //test
+    @POST
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Path("spot2/{id}")
+    public String createSpot2(@PathParam("id") Long timeline_id, String spot){
+        SpotDTO spotDTO = GSON.fromJson(spot, SpotDTO.class);
+        SpotDTO createdSpot = FACADE.createSpot2(spotDTO,timeline_id);
+        return GSON.toJson(createdSpot);
+    }
+
 }

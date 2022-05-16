@@ -107,5 +107,31 @@ public class SpotFacade {
         }
         return spotDTOS;
     }
+
+    public SpotDTO createSpot2(SpotDTO spotDTO, Long timeline_id) { //test
+        EntityManager em = emf.createEntityManager();
+        try {
+            Timeline timeline = em.find(Timeline.class, timeline_id);
+            if (timeline == null) {
+                throw new NotFoundException("No timeline with this id exists");
+            }
+            Date date = new Date();
+            Timestamp ts = new Timestamp(date.getTime());
+            Spot spot = new Spot(spotDTO.getDescription(),spotDTO.getName(), ts);
+            Location location = new Location(spotDTO.getLocationDTO().getId(),spotDTO.getLocationDTO().getName(),spotDTO.getLocationDTO().getType());
+
+            location.addSpot(spot);
+            timeline.addSpot(spot);
+
+            em.getTransaction().begin();
+            em.persist(location);
+            em.persist(spot);
+            em.getTransaction().commit();
+
+            return new SpotDTO(spot);
+        } finally {
+            em.close();
+        }
+    }
 }
 
