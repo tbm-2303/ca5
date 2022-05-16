@@ -59,7 +59,7 @@ public class SpotFacade {
             //LocalDate localDate = LocalDate.parse(date, formatter);
             Date date = new Date();
             Timestamp ts = new Timestamp(date.getTime());
-            Spot spot = new Spot(spotDTO.getDescription(),spotDTO.getName(), ts);
+            Spot spot = new Spot(spotDTO.getDescription(),spotDTO.getName(), spotDTO.getTimestamp());
             TypedQuery<Location> query
                     = em.createQuery("SELECT l FROM Location l where l.name = :country", Location.class);
             query.setParameter("country", spotDTO.getCountry());
