@@ -62,7 +62,7 @@ public class SpotFacade {
             Spot spot = new Spot(spotDTO.getDescription(),spotDTO.getName(), spotDTO.getTimestamp());
             TypedQuery<Location> query
                     = em.createQuery("SELECT l FROM Location l where l.name = :country", Location.class);
-            query.setParameter("country", spotDTO.getCountry());
+            query.setParameter("country", spotDTO.getLocationDTO().getName());
             Location location = query.getSingleResult();
             location.addSpot(spot);
             timeline.addSpot(spot);
@@ -76,6 +76,34 @@ public class SpotFacade {
             em.close();
         }
     }
+
+    //yes
+    public SpotDTO createSpot2(SpotDTO spotDTO, Long timeline_id) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            Timeline timeline = em.find(Timeline.class, timeline_id);
+            if (timeline == null) {
+                throw new NotFoundException("No timeline with this id exists");
+            }
+            //Date date = new Date();
+            //Timestamp ts = new Timestamp(date.getTime());
+            Spot spot = new Spot(spotDTO.getDescription(),spotDTO.getName(), spotDTO.getTimestamp());
+            Location location = new Location(spotDTO.getLocationDTO().getWikiId(),spotDTO.getLocationDTO().getName(),spotDTO.getLocationDTO().getType());
+
+            location.addSpot(spot);
+            timeline.addSpot(spot);
+
+            em.getTransaction().begin();
+            em.persist(location);
+            em.persist(spot);
+            em.getTransaction().commit();
+
+            return new SpotDTO(spot);
+        } finally {
+            em.close();
+        }
+    }
+
     //YES
     public List<SpotDTO> getSpotsFromTimeline(Long timeline_id) {
         EntityManager em = emf.createEntityManager();
@@ -106,31 +134,6 @@ public class SpotFacade {
     }
 
 
-    //yes
-    public SpotDTO createSpot2(SpotDTO spotDTO, Long timeline_id) {
-        EntityManager em = emf.createEntityManager();
-        try {
-            Timeline timeline = em.find(Timeline.class, timeline_id);
-            if (timeline == null) {
-                throw new NotFoundException("No timeline with this id exists");
-            }
-            //Date date = new Date();
-            //Timestamp ts = new Timestamp(date.getTime());
-            Spot spot = new Spot(spotDTO.getDescription(),spotDTO.getName(), spotDTO.getTimestamp());
-            Location location = new Location(spotDTO.getLocationDTO().getWikiId(),spotDTO.getLocationDTO().getName(),spotDTO.getLocationDTO().getType());
 
-            location.addSpot(spot);
-            timeline.addSpot(spot);
-
-            em.getTransaction().begin();
-            em.persist(location);
-            em.persist(spot);
-            em.getTransaction().commit();
-
-            return new SpotDTO(spot);
-        } finally {
-            em.close();
-        }
-    }
 }
 

@@ -49,12 +49,12 @@ public class LocationFacade {
         return countries;
     }
 //no endpoint
-    public LocationDTO findLocationByWikiID(String locationID) {
+    public LocationDTO findLocationByWikiID(String wikiId) {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            TypedQuery<Location> query = em.createQuery("SELECT l FROM Location l WHERE l.id = :id", Location.class);
-            query.setParameter("id", locationID);
+            TypedQuery<Location> query = em.createQuery("SELECT l FROM Location l WHERE l.wikiId = :id", Location.class);
+            query.setParameter("id", wikiId);
             Location location = query.getSingleResult();
             em.getTransaction().commit();
             return new LocationDTO(location);
