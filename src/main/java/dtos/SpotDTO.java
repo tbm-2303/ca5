@@ -23,7 +23,10 @@ public class SpotDTO {
         this.description = spot.getDescription();
         this.name = spot.getName();
         this.country = spot.getLocation().getName();
+        this.timestamp = spot.getTimeStamp();
     }
+
+
 
     public static List<SpotDTO> getDTOS(List<Spot> spot) {
         List<SpotDTO> spotDTOS = new ArrayList<>();
