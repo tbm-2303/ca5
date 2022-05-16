@@ -116,9 +116,9 @@ public class SpotFacade {
         for (Spot spot : spotList) {
             spotDTOS.add(new SpotDTO(spot));
         }
-        //spotDTOS.sort(Comparator.comparing(SpotDTO::getTimestamp));
-        //return new ArrayList<>(spotDTOS);
-        return spotDTOS;
+        spotDTOS.sort(Comparator.comparing(SpotDTO::getTimestamp));
+        return new ArrayList<>(spotDTOS);
+
     }
 
     //YES

@@ -36,6 +36,8 @@ public class SpotDTO {
         return spotDTOS;
     }
 
+
+
     public LocationDTO getLocationDTO() { return locationDTO; }//test
     public void setLocationDTO(LocationDTO locationDTO) { this.locationDTO = locationDTO; }//test
     public TimelineDTO getTimelineDTO() { return timelineDTO; }
