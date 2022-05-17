@@ -126,7 +126,7 @@ public class DemoResource {
     //YES
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    @Path("allUserNames")
+    @Path("allusernames")
     public String getAllUsersNames() throws EntityNotFoundException {
         List<String> usernames = FACADE.getAllUsernames();
         StringBuilder sb = new StringBuilder();
@@ -139,7 +139,7 @@ public class DemoResource {
     //YES
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    @Path("UserByName/{username}")
+    @Path("userbyname/{username}")
     public Response getUserByName(@PathParam("username") String username) throws EntityNotFoundException {
       UserDTO user = FACADE.getUserByName(username);
         return  Response.ok()
@@ -147,7 +147,7 @@ public class DemoResource {
                 .build();
     }
 
-    //?
+    //nope
     @Path("{username}")
     @PUT
     @Produces({MediaType.APPLICATION_JSON})
@@ -163,7 +163,7 @@ public class DemoResource {
     //YES
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    @Path("allLocationNames")
+    @Path("alllocationnames")
     public String getAllLocaionNames() throws EntityNotFoundException {
         List<String> countries = locationfacade.getAllLocationNames();
         StringBuilder sb = new StringBuilder();
