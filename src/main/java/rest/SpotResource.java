@@ -11,9 +11,6 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.util.List;
 
-/**
- * @author lam@cphbusiness.dk
- */
 @Path("spot")
 public class SpotResource {
 
@@ -30,7 +27,7 @@ public class SpotResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String ping() {
-        return "{\"msg\":\"timeline endpoint\"}";
+        return "{\"msg\":\"spot endpoint\"}";
     }
 
 
@@ -42,7 +39,7 @@ public class SpotResource {
     @Path("spot/{id}")
     public String createSpot(@PathParam("id") Long timeline_id, String spot){
         SpotDTO spotDTO = GSON.fromJson(spot, SpotDTO.class);
-        SpotDTO createdSpot = FACADE.createSpot(spotDTO,timeline_id);
+        SpotDTO createdSpot = FACADE.createSpot2(spotDTO,timeline_id);
         return GSON.toJson(createdSpot);
     }
     //yes
@@ -82,6 +79,16 @@ public class SpotResource {
                 .build();
     }
 
-
+    //test
+    //virker men createspot længere oppe er ens med denne
+    @POST
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Path("spot2/{id}")
+    public String createSpot2(@PathParam("id") Long timeline_id, String spot){
+        SpotDTO spotDTO = GSON.fromJson(spot, SpotDTO.class);
+        SpotDTO createdSpot = FACADE.createSpot2(spotDTO,timeline_id);
+        return GSON.toJson(createdSpot);
+    }
 
 }
