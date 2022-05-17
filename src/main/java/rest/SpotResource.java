@@ -57,7 +57,6 @@ public class SpotResource {
         return GSON.toJson(createdSpot);
     }
 
-
     //YES
     @GET
     @Produces({MediaType.APPLICATION_JSON})
