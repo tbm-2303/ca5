@@ -1,11 +1,13 @@
 package facades;
 
 import dtos.LocationDTO;
+import dtos.UserDTO;
 import entities.Location;
 import entities.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +40,8 @@ public class LocationFacade {
     private EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
-//yes
+
+    //yes
     public List<String> getAllLocationNames() {
         EntityManager em = emf.createEntityManager();
         TypedQuery<Location> query = em.createQuery("SELECT l FROM Location l", Location.class);
@@ -48,19 +51,32 @@ public class LocationFacade {
         }
         return countries;
     }
-//no endpoint
-    public LocationDTO findLocationByWikiID(String locationID) {
+
+    //no endpoint
+    public LocationDTO findLocationByWikiID(String wikiId) {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            TypedQuery<Location> query = em.createQuery("SELECT l FROM Location l WHERE l.id = :id", Location.class);
-            query.setParameter("id", locationID);
+            TypedQuery<Location> query = em.createQuery("SELECT l FROM Location l WHERE l.wikiId = :id", Location.class);
+            query.setParameter("id", wikiId);
             Location location = query.getSingleResult();
             em.getTransaction().commit();
             return new LocationDTO(location);
         } finally {
             em.close();
         }
+    }
+
+    public List<LocationDTO> getAllLocation() {
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<Location> query = em.createQuery("SELECT l FROM Location l", Location.class);
+        List<Location> locations = query.getResultList();
+
+        List<LocationDTO> locationDTOS = new ArrayList<>();
+        for (Location l : locations) {
+            locationDTOS.add(new LocationDTO(l));
+        }
+        return locationDTOS;
     }
 
 }

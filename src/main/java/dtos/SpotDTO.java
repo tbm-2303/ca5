@@ -11,7 +11,6 @@ public class SpotDTO {
     private Long id;
     private String description;
     private String name;
-    private String country;
     private Timestamp timestamp;
     private LocationDTO locationDTO;//test
 
@@ -24,7 +23,6 @@ public class SpotDTO {
         this.id = spot.getId();
         this.description = spot.getDescription();
         this.name = spot.getName();
-        this.country = spot.getLocation().getName();
         this.timestamp = spot.getTimeStamp();
         this.locationDTO = new LocationDTO(spot.getLocation());//test
     }
@@ -38,11 +36,10 @@ public class SpotDTO {
         return spotDTOS;
     }
 
+
+
     public LocationDTO getLocationDTO() { return locationDTO; }//test
     public void setLocationDTO(LocationDTO locationDTO) { this.locationDTO = locationDTO; }//test
-
-    public String getCountry() {return country; }
-    public void setCountry(String country) { this.country = country; }
     public TimelineDTO getTimelineDTO() { return timelineDTO; }
     public void setTimelineDTO(TimelineDTO timelineDTO) { this.timelineDTO = timelineDTO; }
     public Timestamp getTimestamp() { return timestamp; }

@@ -62,7 +62,7 @@ public class SpotFacade {
             Spot spot = new Spot(spotDTO.getDescription(),spotDTO.getName(), spotDTO.getTimestamp());
             TypedQuery<Location> query
                     = em.createQuery("SELECT l FROM Location l where l.name = :country", Location.class);
-            query.setParameter("country", spotDTO.getCountry());
+            query.setParameter("country", spotDTO.getLocationDTO().getName());
             Location location = query.getSingleResult();
             location.addSpot(spot);
             timeline.addSpot(spot);
@@ -76,35 +76,6 @@ public class SpotFacade {
             em.close();
         }
     }
-    //YES
-    public List<SpotDTO> getSpotsFromTimeline(Long timeline_id) {
-        EntityManager em = emf.createEntityManager();
-        TypedQuery<Spot> query
-                = em.createQuery("SELECT s FROM Spot s where s.timeline.id = :timeline_id", Spot.class);
-        query.setParameter("timeline_id", timeline_id);
-        List<Spot> spotList = query.getResultList();
-
-        List<SpotDTO> spotDTOS = new ArrayList<>();
-        for (Spot spot : spotList) {
-            spotDTOS.add(new SpotDTO(spot));
-        }
-        spotDTOS.sort(Comparator.comparing(SpotDTO::getTimestamp));
-        return new ArrayList<>(spotDTOS);
-    }
-
-    //YES
-    public List<SpotDTO>  test(){
-        EntityManager em = emf.createEntityManager();
-        Long timeline_ID = 1L;
-        Timeline timeline = em.find(Timeline.class,timeline_ID);
-        List<Spot> spotList = timeline.getSpotList();
-        List<SpotDTO> spotDTOS = new ArrayList<>();
-        for (Spot spot : spotList) {
-            spotDTOS.add(new SpotDTO(spot));
-        }
-        return spotDTOS;
-    }
-
 
     //yes
     public SpotDTO createSpot2(SpotDTO spotDTO, Long timeline_id) {
@@ -132,5 +103,38 @@ public class SpotFacade {
             em.close();
         }
     }
+
+    //YES
+    public List<SpotDTO> getSpotsFromTimeline(Long timeline_id) {
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<Spot> query
+                = em.createQuery("SELECT s FROM Spot s where s.timeline.id = :timeline_id", Spot.class);
+        query.setParameter("timeline_id", timeline_id);
+        List<Spot> spotList = query.getResultList();
+
+        List<SpotDTO> spotDTOS = new ArrayList<>();
+        for (Spot spot : spotList) {
+            spotDTOS.add(new SpotDTO(spot));
+        }
+        spotDTOS.sort(Comparator.comparing(SpotDTO::getTimestamp));
+        return new ArrayList<>(spotDTOS);
+
+    }
+
+    //YES
+    public List<SpotDTO>  test(){
+        EntityManager em = emf.createEntityManager();
+        Long timeline_ID = 1L;
+        Timeline timeline = em.find(Timeline.class,timeline_ID);
+        List<Spot> spotList = timeline.getSpotList();
+        List<SpotDTO> spotDTOS = new ArrayList<>();
+        for (Spot spot : spotList) {
+            spotDTOS.add(new SpotDTO(spot));
+        }
+        return spotDTOS;
+    }
+
+
+
 }
 

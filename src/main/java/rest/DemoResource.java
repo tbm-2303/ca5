@@ -3,6 +3,7 @@ package rest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import dtos.LocationDTO;
 import dtos.UserDTO;
 import entities.Location;
 import entities.Role;
@@ -171,7 +172,16 @@ public class DemoResource {
         }
         return sb.toString();
     }
-
+    //YES
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    @Path("allLocation")
+    public Response getAllLocaion() throws EntityNotFoundException {
+        List<LocationDTO> locationDTOS = locationfacade.getAllLocation();
+        return Response.ok()
+                .entity(GSON.toJson(locationDTOS))
+                .build();
+    }
 
 
 
